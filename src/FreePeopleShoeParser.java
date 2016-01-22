@@ -12,10 +12,12 @@ public class FreePeopleShoeParser {
 			 + "?browseState=updated&hasLeftNav=YES&startResult=1&showAll=1&sizes=lt";
 	 //map the shoe id to the FreePeopleShoe it represents
 	 private static HashMap<String, FreePeopleShoe> shoeMap = new HashMap<String, FreePeopleShoe>();
+	 private static final String SELECTOR_QUERY = "[data-stylenumber], [href], [src], [itemprop=url], .price";
 	 
 	 public FreePeopleShoeParser(){
 		 try{
 			 Elements allShoes = getAllShoes();
+			 System.out.println("allShoes size: " + allShoes.size());
 			 for(Element shoe : allShoes){
 				 createShoe(shoe);
 			 }
@@ -26,7 +28,7 @@ public class FreePeopleShoeParser {
 			 
 			 return;
 		 }
-		 
+		 System.out.println("shoeMap size: " + shoeMap.size());
 	 }
 	 
 	 //gets all the items on the page
@@ -49,14 +51,37 @@ public class FreePeopleShoeParser {
 		 String product_id = shoe.attr("data-stylenumber");
 		 //don't want to process again if we already have it in the map
 		 if(shoeMap.containsKey(product_id)){
+			 System.out.println("duplicate id: " + product_id);
 			 return;
 		 } 
-		 Attributes atts = shoe.attributes();
-		 //iterate through all the attributes
-		 for(Attribute a : atts){
+		 
+		 //get all elements matching one of the selector queries
+		 Elements shoeFeatures = shoe.select(FreePeopleShoeParser.SELECTOR_QUERY);
+		 String URL = "";
+		 String img_URL = "";
+		 String name = "";
+		 double price = -1;
+		 for(Element e : shoeFeatures){
+			 
+			 //if this is the link 
+			 if(e.hasAttr("data-integration")){
+				 URL = e.attr("href");
+			 }
+			 //if this is the image
+			 else if(e.hasAttr("src")){
+				 img_URL = e.attr("src");
+			 }
+			 //if this is the name
+			 else if(e.hasAttr("itemprop")){
+				 name = e.text();
+			 }
+			 //if this is the price
+			 else if(e.hasAttr("price")){
+				 price = Double.valueOf(e.ownText());
+			 }
 			 
 		 }
-		 
+		 shoeMap.put(product_id, new FreePeopleShoe(product_id, name, price, URL, img_URL));		 
 	 }
 	 
 }
