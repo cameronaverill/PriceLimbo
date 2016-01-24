@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name=“FreePeopleShoe” table=“FREEPEOPLESHOE”>
+      <meta attribute="class-description">
+         Description for a free people shoe 
+      </meta>
+      <id name="id" type="int" column="id">
+         <generator class="native"/>
+      </id>
+      <property name=“product_id” column=“product_id” type="string"/>
+      <property name=“name” column=“name” type="string"/>
+      <property name=“URL” column=“URL” type="int"/>
+      <property name=“img_URL” column=“img_URL” type="int"/>
+      <property name=“price” column=“price” type=“double”/>
+
+   </class>
+</hibernate-mapping>

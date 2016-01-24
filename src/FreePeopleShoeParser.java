@@ -3,8 +3,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
 
 public class FreePeopleShoeParser {
 	//link to access FreePeople data
@@ -28,7 +26,6 @@ public class FreePeopleShoeParser {
 			 
 			 return;
 		 }
-		 System.out.println("shoeMap size: " + shoeMap.size());
 	 }
 	 
 	 //gets all the items on the page
@@ -82,6 +79,10 @@ public class FreePeopleShoeParser {
 			 
 		 }
 		 shoeMap.put(product_id, new FreePeopleShoe(product_id, name, price, URL, img_URL));		 
+	 }
+	 
+	 public HashMap<String, FreePeopleShoe> getShoeMap(){
+		 return shoeMap;
 	 }
 	 
 }
