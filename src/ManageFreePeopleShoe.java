@@ -26,6 +26,7 @@ public class ManageFreePeopleShoe {
 	    }
 		FreePeopleShoeParser fp = new FreePeopleShoeParser();
 		HashMap<String, FreePeopleShoe> allShoes = fp.getShoeMap();
+		
 		for(FreePeopleShoe shoe: allShoes.values()){
 			
 		}
