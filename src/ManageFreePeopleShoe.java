@@ -24,14 +24,29 @@ public class ManageFreePeopleShoe {
 	         System.err.println("Failed to create sessionFactory object." + ex);
 	         throw new ExceptionInInitializerError(ex); 
 	    }
-		FreePeopleShoeParser fp = new FreePeopleShoeParser();
-		HashMap<String, FreePeopleShoe> allShoes = fp.getShoeMap();
-		
-		for(FreePeopleShoe shoe: allShoes.values()){
-			
-		}
-		
-	}
+
+	      ManageFreePeopleShoe ME = new ManageFreePeopleShoe();
+
+	      /* Add few employee records in database */
+	      Integer empID1 = ME.addFreePeopleShoe(new FreePeopleShoe("123", "test", 10000.00, "google.com", "images.google.com"));
+
+	      /* List down all the employees */
+	      ME.listShoes();
+
+	      
+	      try{
+	    	  ME.updateFreePeopleShoe("123", 5000);
+	      }
+	      catch(NoSuchFieldException e){
+	    	  System.out.println("dog");
+	      }
+
+	      /* Delete an employee from the database */
+	      ME.deleteFreePeopleShoe(empID1);
+
+	      /* List down new list of the employees */
+	      ME.listShoes();
+	   }
 	
 	public static SessionFactory createSessionFactory() {
 	    Configuration configuration = new Configuration();
@@ -87,7 +102,7 @@ public class ManageFreePeopleShoe {
 	}
 	
 	//returns a shoe if it exists 
-	private FreePeopleShoe getFreePeopleShoe(String product_id) throws NoSuchFieldException{
+	private FreePeopleShoe getFreePeopleShoeByProductID(String product_id) throws NoSuchFieldException{
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		FreePeopleShoe shoe = null;
@@ -97,6 +112,27 @@ public class ManageFreePeopleShoe {
 			//get the shoe based on the free people product id
 			shoe = (FreePeopleShoe) criteria.add(Restrictions.eq("product_id", product_id))
 			                             .uniqueResult();
+			tx.commit();
+		}
+		catch(HibernateException e){
+			if(tx != null){
+				tx.rollback();
+			}
+			e.printStackTrace();
+		}
+		finally{
+			session.close();
+		}
+		return shoe;
+	}
+	
+	private FreePeopleShoe getFreePeopleShoe(Integer shoeId) throws NoSuchFieldException{
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		FreePeopleShoe shoe = null;
+		try{
+			tx = session.beginTransaction();
+			shoe = (FreePeopleShoe) session.get(FreePeopleShoe.class, shoeId);
 			tx.commit();
 		}
 		catch(HibernateException e){
@@ -125,7 +161,7 @@ public class ManageFreePeopleShoe {
 			if(shoe == null){
 				throw new NoSuchFieldException("you cannot update an item that doesn't exist already");
 			}
-			shoe.setCurrPrice(price);
+			shoe.setPrice(price);
 			session.update(shoe);
 			tx.commit();
 		}
@@ -140,7 +176,7 @@ public class ManageFreePeopleShoe {
 		}
 	}
 	
-    public void deleteEmployee(Integer shoeId){
+    public void deleteFreePeopleShoe(Integer shoeId){
        Session session = sessionFactory.withOptions().interceptor(new MyInterceptor()).openSession();
 	   Transaction tx = null;
        try{

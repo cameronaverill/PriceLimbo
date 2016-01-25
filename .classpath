@@ -32,5 +32,6 @@
 	<classpathentry kind="lib" path="/Users/cameronaverill/Downloads/hibernate-release-4.0.1.Final/lib/optional/infinispan/woodstox-core-asl-4.1.1.jar"/>
 	<classpathentry kind="lib" path="/Users/cameronaverill/Downloads/hibernate-release-4.0.1.Final/lib/optional/proxool/hibernate-proxool-4.0.1.Final.jar"/>
 	<classpathentry kind="lib" path="/Users/cameronaverill/Downloads/hibernate-release-4.0.1.Final/lib/optional/proxool/proxool-0.8.3.jar"/>
+	<classpathentry kind="lib" path="/Users/cameronaverill/Desktop/JavaProjects/PriceLimbo/mysql-connector-java-5.1.38-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

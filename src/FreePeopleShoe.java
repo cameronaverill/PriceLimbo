@@ -32,11 +32,11 @@ public class FreePeopleShoe implements Trackable, Approves{
 	    this.id = id;
 	}
 	   
-	public double getCurrPrice(){
+	public double getPrice(){
 		return price;
 	}
 	
-	public void setCurrPrice(double newPrice) {
+	public void setPrice(double newPrice) {
 		price = newPrice;
 	}
 	
@@ -48,27 +48,27 @@ public class FreePeopleShoe implements Trackable, Approves{
 		this.name = name;
 	}
 	
-	public String getProductID(){
+	public String getProduct_id(){
 		return product_id;
 	}
 	
-	public void setProductID(String product_id){
+	public void setProduct_id(String product_id){
 		this.product_id = product_id;
 	}
 	
-	public String getUrl(){
+	public String getURL(){
 		return URL;
 	}
 	
-	public void setUrl(String URL){
+	public void setURL(String URL){
 		this.URL = URL;
 	}
 	
-	public String getImgUrl(){
+	public String getImg_URL(){
 		return img_URL;
 	}
 	
-	public void setImgUrl(String img_URL){
+	public void setImg_URL(String img_URL){
 		this.img_URL = img_URL;
 	}
 	
@@ -76,4 +76,5 @@ public class FreePeopleShoe implements Trackable, Approves{
 	public boolean approve(){
 		return (this.price - FreePeopleShoe.TRIGGER_PRICE <= Math.pow(10, -5));
 	}
+
 }
