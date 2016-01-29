@@ -10,7 +10,11 @@ public class FreePeopleShoeParser {
 			 + "?browseState=updated&hasLeftNav=YES&startResult=1&showAll=1&sizes=lt";
 	 //map the shoe id to the FreePeopleShoe it represents
 	 private static HashMap<String, FreePeopleShoe> shoeMap = new HashMap<String, FreePeopleShoe>();
-	 private static final String SELECTOR_QUERY = "[data-stylenumber], [href], [src], [itemprop=url], .price";
+	 private static final String SELECTOR_QUERY = "[data-stylenumber], [data-integration], [src], [itemprop=url], .price";
+	 
+	 public static void main(String[] args){
+		 FreePeopleShoeParser fp = new FreePeopleShoeParser();
+	 }
 	 
 	 public FreePeopleShoeParser(){
 		 try{
@@ -61,24 +65,25 @@ public class FreePeopleShoeParser {
 		 for(Element e : shoeFeatures){
 			 
 			 //if this is the link 
-			 if(e.hasAttr("data-integration")){
+			 if(e.hasAttr("data-integration") && e.attr("data-integration").contains("browse-productThumbLink")){
 				 URL = e.attr("href");
 			 }
 			 //if this is the image
-			 else if(e.hasAttr("src")){
+		     if(e.hasAttr("src")){
 				 img_URL = e.attr("src");
 			 }
 			 //if this is the name
-			 else if(e.hasAttr("itemprop")){
+			 if(e.hasAttr("itemprop") && e.attr("itemprop").equals("url")){
 				 name = e.text();
 			 }
 			 //if this is the price
-			 else if(e.hasAttr("price")){
+			 if(e.hasClass("price")){
 				 price = Double.valueOf(e.ownText());
 			 }
 			 
 		 }
-		 shoeMap.put(product_id, new FreePeopleShoe(product_id, name, price, URL, img_URL));		 
+		 shoeMap.put(product_id, new FreePeopleShoe(product_id, name, price, URL, img_URL));
+		 
 	 }
 	 
 	 public HashMap<String, FreePeopleShoe> getShoeMap(){

@@ -4,4 +4,5 @@ public interface Trackable {
 	public double getPrice();
 	public String getName();
 	public String getProduct_id();
+	public String getURL();
 }

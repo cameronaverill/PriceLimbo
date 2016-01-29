@@ -16,7 +16,8 @@ public class ManageFreePeopleShoe {
 	private static SessionFactory sessionFactory;
 	private static ServiceRegistry serviceRegistry;
 	
-	public static void main(String[] args){
+	
+	public ManageFreePeopleShoe(){
 		try{
 	         sessionFactory = createSessionFactory();
 	    }
@@ -24,29 +25,7 @@ public class ManageFreePeopleShoe {
 	         System.err.println("Failed to create sessionFactory object." + ex);
 	         throw new ExceptionInInitializerError(ex); 
 	    }
-
-	      ManageFreePeopleShoe ME = new ManageFreePeopleShoe();
-
-	      /* Add few employee records in database */
-	      Integer empID1 = ME.addFreePeopleShoe(new FreePeopleShoe("123", "test", 10000.00, "google.com", "images.google.com"));
-
-	      /* List down all the employees */
-	      ME.listShoes();
-
-	      
-	      try{
-	    	  ME.updateFreePeopleShoe("123", 5000);
-	      }
-	      catch(NoSuchFieldException e){
-	    	  System.out.println("dog");
-	      }
-
-	      /* Delete an employee from the database */
-	      ME.deleteFreePeopleShoe(empID1);
-
-	      /* List down new list of the employees */
-	      ME.listShoes();
-	   }
+	}
 	
 	public static SessionFactory createSessionFactory() {
 	    Configuration configuration = new Configuration();
@@ -57,7 +36,7 @@ public class ManageFreePeopleShoe {
 	    return sessionFactory;
 	}
 	
-	private Integer addFreePeopleShoe(FreePeopleShoe shoe){
+	public Integer addFreePeopleShoe(FreePeopleShoe shoe){
 		Session session = sessionFactory.withOptions().interceptor(new MyInterceptor()).openSession();
 		Transaction tx = null;
 		Integer shoeId = null;
@@ -102,7 +81,7 @@ public class ManageFreePeopleShoe {
 	}
 	
 	//returns a shoe if it exists 
-	private FreePeopleShoe getFreePeopleShoeByProductID(String product_id) throws NoSuchFieldException{
+	public FreePeopleShoe getFreePeopleShoeByProductID(String product_id) throws NoSuchFieldException{
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		FreePeopleShoe shoe = null;
@@ -126,7 +105,7 @@ public class ManageFreePeopleShoe {
 		return shoe;
 	}
 	
-	private FreePeopleShoe getFreePeopleShoe(Integer shoeId) throws NoSuchFieldException{
+	public FreePeopleShoe getFreePeopleShoe(Integer shoeId) throws NoSuchFieldException{
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		FreePeopleShoe shoe = null;
@@ -148,7 +127,7 @@ public class ManageFreePeopleShoe {
 	}
 	
 	//returns whether we should update the shoe entry in the database 
-	private void updateFreePeopleShoe(String product_id, double price) throws NoSuchFieldException{
+	public void updateFreePeopleShoe(String product_id, double price) throws NoSuchFieldException{
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		try{

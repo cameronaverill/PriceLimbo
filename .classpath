@@ -35,5 +35,6 @@
 	<classpathentry kind="lib" path="/Users/cameronaverill/Desktop/JavaProjects/PriceLimbo/mysql-connector-java-5.1.38-bin.jar"/>
 	<classpathentry kind="lib" path="/Users/cameronaverill/Desktop/JavaProjects/PriceLimbo/resources/javax.mail.jar"/>
 	<classpathentry kind="lib" path="/Users/cameronaverill/Desktop/JavaProjects/PriceLimbo/resources/jaf-1.1.1/activation.jar"/>
+	<classpathentry kind="lib" path="/Users/cameronaverill/Downloads/jaf-1.1.1/activation.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
